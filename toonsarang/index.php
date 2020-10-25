@@ -46,13 +46,11 @@ if($_GET['keyword'] != null){
 			$genre = trim(strip_tags($e));
 		}
 
-		if ( $_GET['user'] == "jackie" ) {
-			$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."&type=".$type."'>다운로드</a>";
-		} else $down = "";
-
-		echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
-		echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a></font></b><br>";
-		echo "[장르:".$genre."]".$down."</p></span></div>";
+		if ( $is_adult == "true" || $adult != "(19)" ) {
+			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+			echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a></font></b><br>";
+			echo "[장르:".$genre."]".$down."</p></span></div>";
+		}
 	}
 } else {
 	if ( $ends != "END" ) {
@@ -88,13 +86,11 @@ if($_GET['keyword'] != null){
 				$genre = trim(strip_tags($e));
 			}
 
-			if ( $_GET['user'] == "jackie" ) {
-				$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>다운로드</a>";
-			} else $down = "";
-
-			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
-			echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a></font></b><br>";
-			echo "[장르:".$genre."]".$down."</p></span></div>";
+			if ( $is_adult == "true" || $adult != "(19)" ) {
+				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+				echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a></font></b><br>";
+				echo "[장르:".$genre."]".$down."</p></span></div>";
+			}
 		}
 	} else {
 		$get_html_contents = file_get_html($base_url."/웹툰/작품/완결?sort=latest");
@@ -129,13 +125,11 @@ if($_GET['keyword'] != null){
 				$genre = trim(strip_tags($e));
 			}
 
-			if ( $_GET['user'] == "jackie" ) {
-				$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>다운로드</a>";
-			} else $down = "";
-
-			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
-			echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a></font></b><br>";
-			echo "[장르:".$genre."]".$down."</p></span></div>";
+			if ( $is_adult == "true" || $adult != "(19)" ) {
+				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+				echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a></font></b><br>";
+				echo "[장르:".$genre."]".$down."</p></span></div>";
+			}
 		}
 	}
 }

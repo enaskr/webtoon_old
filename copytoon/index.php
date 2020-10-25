@@ -49,10 +49,6 @@ if($_GET['keyword'] != null){
 			$genre = trim(strip_tags($e));
 		}
 
-		if ( $_GET['user'] == "jackie" ) {
-			$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."&type=".$type."'>다운로드</a>";
-		} else $down = "";
-
 		echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
 		echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a><font color=red>[".$term."]</font></font></b><br>";
 		echo "[장르:".$genre."]".$down."</p></span></div>";
@@ -92,10 +88,6 @@ if($_GET['keyword'] != null){
 				$genre = trim(strip_tags($e));
 			}
 
-			if ( $_GET['user'] == "jackie" ) {
-				$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."&type=".$type."'>다운로드</a>";
-			} else $down = "";
-
 			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
 			echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a><font color=red>[".$term."]</font></font></b><br>";
 			echo "[장르:".$genre."]".$down."</p></span></div>";
@@ -130,10 +122,6 @@ if($_GET['keyword'] != null){
 			foreach($f->find('div.section-item-genre') as $e){
 				$genre = trim(strip_tags($e));
 			}
-
-			if ( $_GET['user'] == "jackie" ) {
-				$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."&type=".$type."'>다운로드</a>";
-			} else $down = "";
 
 			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'><img class='rounded-lg' src=".$img_link." style='float:left;' width='180px'></a><p style='height:100px;padding-left:20px;display:table-cell;vertical-align:middle;'><b><font size=3>";
 			echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($wr_id)."'>".$subject."</a><font color=red>[완결]</font></font></b><br>";
