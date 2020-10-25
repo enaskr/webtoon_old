@@ -57,12 +57,12 @@
 	echo "<font size=4><b><a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a></b></font>:::<a href='".$url."'><img src='logo.png' height='25px'></a><br>\n";
 
 	if ( $prev_url != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$prev_epi."&type=".$_GET['type']."&target=".urlencode($prev_url)."'>이전화 보기</a></b> | </font>";
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($prev_epi)."'>이전화 보기</a></b> | </font>";
 	} else {
 		echo "이전화없음 | ";
 	}
 	if ( $next_url != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$next_epi."&type=".$_GET['type']."&target=".urlencode($next_url)."'>다음화 보기</a></b></font>";
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($next_epi)."'>다음화 보기</a></b></font>";
 	} else {
 		echo "다음화없음";
 	}
@@ -82,13 +82,13 @@
 		echo "<img src='".$get_images."' width='100%'><br>";
 	}
 
-	if ( $prev_epi[1] != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".$prev_epi[1]."&type=".$_GET['type']."&target=".urlencode($prev_url)."'>이전화 보기</a></b> | </font>";
+	if ( $prev_url != null ) {
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($prev_epi)."'>이전화 보기</a></b> | </font>";
 	} else {
 		echo "이전화없음 | ";
 	}
-	if ( $next_epi[1] != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".$next_epi[1]."&type=".$_GET['type']."&target=".urlencode($next_url)."'>다음화 보기</a></b></font>";
+	if ( $next_url != null ) {
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($next_epi)."'>다음화 보기</a></b></font>";
 	} else {
 		echo "다음화없음";
 	}
