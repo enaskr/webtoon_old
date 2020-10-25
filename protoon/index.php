@@ -1,0 +1,162 @@
+<?php
+	include('../lib/header.php');
+?>
+<form action="index.php" method="get">
+<input type=text class="form-control mb-1 pb-2" name="keyword" width="150px"><br>
+<input type="hidden" name="user" value="<?= $_GET['user'] ?>">
+<button class="btn m-0 p-1 btn-success btn-block btn-sm" type=submit>검색하기</button>
+</form>
+<?php
+include('../lib/simple_html_dom.php');
+
+$base_url = $protoon_url;
+$page = $_GET["page"];
+if ( $page == null ) $page = "1";
+if($_GET['keyword'] != null){
+
+	$target = $base_url."search/main?tse_key_=".urlencode($_GET['keyword']);
+
+	$get_html_contents = file_get_html($target);
+	for($html_c = 0; $html_c < $try_count; $html_c++){
+		if(strlen($get_html_contents) > 50000){
+			break;
+		} else {
+			$get_html_contents = "";
+			$get_html_contents = file_get_html($target);
+		}
+	}
+	foreach($get_html_contents->find('a.boxs') as $e) {
+		$loopcnt++;
+		if ( $loopcnt > $list_count ) break;
+		$term = "";
+		$f = str_get_html($e->innertext);
+		$img_link = $e->getAttribute("style");
+		$img_link = str_replace("background:url('","",$img_link);
+		$img_link = str_replace("') center center no-repeat; background-size:cover;","",$img_link);
+
+		foreach($f->find('div.stit') as $g){
+			$subject = trim(strip_tags($g));
+		}
+		$target_link = $e->href;
+		$tgparse = explode('?' , $target_link);
+		$idparse = explode('&' , $tgparse[1]);
+		$wridparse = explode('=' , $idparse[0]);
+		$wr_id = $wridparse[1];
+		$genreparse = explode('=' , $idparse[1]);
+		$genre = $genreparse[1];
+
+		if ( $userName == "관리자" ) {
+			$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".$wr_id."&type=".$genre."'>다운로드</a> <br>";
+		} else $down = "";
+
+		echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id."><img class='rounded-lg' src='".$img_link."' style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+		echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id."&type=".$genre.">".$subject."(".$wr_id.")</a></font></b><br>";
+		echo "[장르:".$genre."]".$down."</p></span></div>";
+	}
+} else {
+	if ( $_GET["end"] != "END" ) {
+		$get_html_contents = file_get_html($base_url."toon/mais?typ_=normal");
+		for($html_c = 0; $html_c < $try_count; $html_c++){
+			if(strlen($get_html_contents) > 50000){
+				break;
+			} else {
+				$get_html_contents = file_get_html($base_url);
+			}
+		}
+
+		foreach($get_html_contents->find('a.boxs') as $e){
+			$loopcnt++;
+			if ( $loopcnt > $list_count ) break;
+			$term = "";
+			$f = str_get_html($e->innertext);
+			foreach($f->find('div.post') as $g){
+				$img_link = $g->getAttribute("style");
+				$img_link = str_replace("background:url('","",$img_link);
+				$img_link = str_replace("') center center no-repeat; background-size:cover;","",$img_link);
+			}
+			foreach($f->find('div.dtit') as $g){
+				$subject = trim(strip_tags($g));
+			}
+			$target_link = $e->href;
+			$tgparse = explode('?' , $target_link);
+			$idparse = explode('&' , $tgparse[1]);
+			$wridparse = explode('=' , $idparse[1]);
+			$wr_id = $wridparse[1];
+			$typeparse = explode('=' , $idparse[0]);
+			$type = $typeparse[1];
+
+			foreach($f->find('div.news') as $e){
+				$term = trim(strip_tags($e));
+			}
+			foreach($f->find('div.dwek') as $e){
+				$publish = trim(strip_tags($e));
+			}
+			foreach($f->find('div.dgen') as $e){
+				$genre = trim(strip_tags($e));
+			}
+
+			if ( $userName == "관리자"  ) {
+				$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".$wr_id."&type=".$type."'>다운로드</a>";
+			} else $down = "";
+
+			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id."><img class='rounded-lg' src=".$img_link." style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+			echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id."&type=".$type.">".$subject."(".$wr_id.")</a><font color=red>[".$term."]</font></font></b><br>";
+			echo "[장르:".$genre."][연재주기:".$publish."]".$down."</p></span></div>";
+		}
+	} else {
+		$get_html_contents = file_get_html($base_url."toon/mais?typ_=ends&cpa=".$page);
+		for($html_c = 0; $html_c < $try_count; $html_c++){
+			if(strlen($get_html_contents) > 50000){
+				break;
+			} else {
+				$get_html_contents = file_get_html($base_url);
+			}
+		}
+
+		foreach($get_html_contents->find('a.boxs') as $e){
+			$loopcnt++;
+			//if ( $loopcnt > $list_count ) break;
+			$term = "";
+			$f = str_get_html($e->innertext);
+			foreach($f->find('div.post') as $g){
+				$img_link = $g->getAttribute("style");
+				$img_link = str_replace("background:url('","",$img_link);
+				$img_link = str_replace("') center center no-repeat; background-size:cover;","",$img_link);
+			}
+			foreach($f->find('div.dtit') as $g){
+				$subject = trim(strip_tags($g));
+			}
+			$target_link = $e->href;
+			$tgparse = explode('?' , $target_link);
+			$idparse = explode('&' , $tgparse[1]);
+			$wridparse = explode('=' , $idparse[1]);
+			$wr_id = $wridparse[1];
+			$typeparse = explode('=' , $idparse[0]);
+			$type = $typeparse[1];
+
+			foreach($f->find('div.news') as $e){
+				$term = trim(strip_tags($e));
+			}
+			foreach($f->find('div.dwek') as $e){
+				$publish = trim(strip_tags($e));
+			}
+			foreach($f->find('div.dgen') as $e){
+				$genre = trim(strip_tags($e));
+			}
+
+			if ( $userName == "관리자"  ) {
+				$down = "<br><br><a href='down.php?title=".urlencode($subject)."&wr_id=".$wr_id."&type=".$type."'>다운로드</a>";
+			} else $down = "";
+
+			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id."><img class='rounded-lg' src=".$img_link." style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+			echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id."&type=".$type.">".$subject."(".$wr_id.")</a><font color=red>[".$term."]</font></font></b><br>";
+			echo "[장르:".$genre."][연재주기:".$publish."]".$down."</p></span></div>";
+		}
+?>
+<center><font size="4"><a href="index.php?end=END&page=1"><?php if ($page=="1") {echo "<font color=red><b>1</b></font>"; } else {echo "1";} ?></a> | <a href="index.php?end=END&page=2"><?php if ($page=="2") {echo "<font color=red><b>2</b></font>"; } else {echo "2";} ?></a> |  <a href="index.php?end=END&page=3"><?php if ($page=="3") {echo "<font color=red><b>3</b></font>"; } else {echo "3";} ?></a> |  <a href="index.php?end=END&page=4"><?php if ($page=="4") {echo "<font color=red><b>4</b></font>"; } else {echo "4";} ?></a> |  <a href="index.php?end=END&page=5"><?php if ($page=="5") {echo "<font color=red><b>5</b></font>"; } else {echo "5";} ?></a> |  <a href="index.php?end=END&page=6"<?php if ($page=="6") {echo "<font color=red><b>6</b></font>"; } else {echo "6";} ?></a> |  <a href="index.php?end=END&page=7"><?php if ($page=="7") {echo "<font color=red><b>7</b></font>"; } else {echo "7";} ?></a> |  <a href="index.php?end=END&page=8"><?php if ($page=="8") {echo "<font color=red><b>8</b></font>"; } else {echo "8";} ?></a> |  <a href="index.php?end=END&page=9"><?php if ($page=="9") {echo "<font color=red><b>9</b></font>"; } else {echo "9";} ?></a> |  <a href="index.php?end=END&page=10"><?php if ($page=="10") {echo "<font color=red><b>10</b></font>"; } else {echo "10";} ?></a> |  <a href="index.php?end=END&page=11"><?php if ($page=="11") {echo "<font color=red><b>11/b></font>"; } else {echo "11";} ?></a> |  <a href="index.php?end=END&page=12"><?php if ($page=="12") {echo "<font color=red><b>12</b></font>"; } else {echo "12";} ?></a> |  <a href="index.php?end=END&page=13"><?php if ($page=="13") {echo "<font color=red><b>13</b></font>"; } else {echo "13";} ?></a> |  <a href="index.php?end=END&page=14"><?php if ($page=="14") {echo "<font color=red><b>14</b></font>"; } else {echo "14";} ?></a></font></center>
+<?php
+	}
+}
+?>
+</body>
+</html>
