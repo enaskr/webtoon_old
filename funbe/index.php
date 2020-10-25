@@ -54,7 +54,7 @@ if($_GET['keyword'] != null){
 			}
 
 			if ( $is_adult == "true" || $adult != "(19)" ) {
-				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."><img class='rounded-lg' src='".$img_link."' style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($target_link)."'><img class='rounded-lg' src='".$img_link."' style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
 				echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($target_link)."'>".$subject.$adult."</a><font color=red>[".$term."]</font></font></b><br>";
 				echo $down."</p></span></div>";
 			}
@@ -99,7 +99,7 @@ if($_GET['keyword'] != null){
 			}
 
 			if ( $is_adult == "true" || $adult != "(19)" ) {
-				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."><img class='rounded-lg' src='".$img_link."' style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($target_link)."'><img class='rounded-lg' src='".$img_link."' style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
 				echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($target_link)."'>".$subject.$adult."</a><font color=red>[".$term."]</font></font></b><br>";
 				echo "[장르:".$genre."]".$down."</p></span></div>";
 			}
@@ -143,7 +143,7 @@ if($_GET['keyword'] != null){
 			}
 
 			if ( $is_adult == "true" || $adult != "(19)" ) {
-				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."><img class='rounded-lg' src='".$img_link."' style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
+				echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($target_link)."'><img class='rounded-lg' src='".$img_link."' style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display:table-cell;vertical-align:middle;'><b><font size=3>";
 				echo "<a href='list.php?title=".urlencode($subject)."&wr_id=".urlencode($target_link)."'>".$subject.$adult."</a><font color=red>[".$term."]</font></font></b><br>";
 				echo "[장르:".$genre."]".$down."</p></span></div>";
 			}
