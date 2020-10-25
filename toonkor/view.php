@@ -82,8 +82,6 @@
 		echo "<img src='".$get_images."' width='100%'><br>";
 	}
 
-	echo "<br>".$conts."<br>";
-
 	if ( $prev_epi[1] != null ) {
 		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".$prev_epi[1]."&type=".$_GET['type']."&target=".urlencode($prev_url)."'>이전화 보기</a></b> | </font>";
 	} else {

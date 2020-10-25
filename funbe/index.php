@@ -10,8 +10,6 @@
 include('../lib/simple_html_dom.php');
 
 $base_url = $funbe_url;
-$list_count = $config['list_count'];
-$try_count = $config['try_count'];
 
 if($_GET['keyword'] != null){
 	$target = $base_url."bbs/search.php?sfl=wr_subject||wr_content&stx=".$_GET['keyword'];
