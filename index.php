@@ -1,6 +1,3 @@
-<?php
-	include('config.php');
-?>
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
@@ -20,9 +17,6 @@
 			<dl>
 				<dt>WEBTOON</dt>
 				<dd>
-<?php
-	if ( $is_adult == "true" ) { 
-?>
 					<div class="group">
 					<a href="./newtoki/" target="_top">뉴토끼</a>
 					<a href="./newtoki/?end=END" target="_top">뉴토끼 완결</a>
@@ -33,9 +27,6 @@
 					<a href="./protoon/?end=END" target="_top">프로툰 완결</a>
 					<a href="./protoon/update.php" target="_top">주소</a>
 					</div>
-<?php
-	}
-?>
 					<div class="group">
 					<a href="./toonkor/" target="_top">툰코</a>
 					<a href="./toonkor/?end=END" target="_top">툰코 완결</a>
