@@ -59,4 +59,4 @@
 	</style>
 </head>
 <body>
-<font size="3"><a href="../">초기화면</a> | <a href="../newtoki/<?php echo $end; ?>"><?php echo $strnewtoki; ?></a> | <a href="../protoon/<?php echo $end; ?>"><?php echo $strprotoon; ?></a> | <a href="../toonkor/<?php echo $end; ?>"><?php echo $strtoonkor; ?></a> | <a href="../funbe/<?php echo $end; ?>"><?php echo $strfunbe; ?></a> | <a href="../spowiki/<?php echo $end; ?>"><?php echo $strspowiki; ?></a></font><br>
+<font size="3"><a href="../">초기화면</a> | <?php if ( $is_adult == "true" ) { ?><a href="../newtoki/<?php echo $end; ?>"><?php echo $strnewtoki; ?></a> | <a href="../protoon/<?php echo $end; ?>"><?php echo $strprotoon; ?></a> | <?php } ?><a href="../toonkor/<?php echo $end; ?>"><?php echo $strtoonkor; ?></a> | <a href="../funbe/<?php echo $end; ?>"><?php echo $strfunbe; ?></a> | <a href="../spowiki/<?php echo $end; ?>"><?php echo $strspowiki; ?></a></font><br>
