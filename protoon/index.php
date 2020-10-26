@@ -6,7 +6,7 @@
 <input type="hidden" name="user" value="<?= $_GET['user'] ?>">
 <button class="btn m-0 p-1 btn-success btn-block btn-sm" type=submit>검색하기</button>
 </form>
-<?php if ( $is_adult == "true" ) { ?>
+<?php if ( $is_adult == "false" ) { ?>
 <font size="3" color="red"><b>프로툰 사이트에서는 성인 컨텐츠 차단 설정이 활성화된 경우는 썸네일 이미지가 노출되지 않습니다.</b></font><br>
 <?php } ?>
 <?php
