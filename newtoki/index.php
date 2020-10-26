@@ -37,7 +37,9 @@
 			$subject = str_replace("</b>","", $subject);
 			$wr_id_arr = explode("wr_id=", $target_link);
 
-			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr[1]."><img class='rounded-lg' src=".$img_link." style='float:left; padding:10px;' width='180px'></a><p style='height:100px;display: table-cell;vertical-align: middle;'><b><font size=3>";
+			echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span>";
+			echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr[1]."><img class='rounded-lg' src=".$img_link." style='float:left; padding:10px;' width='180px'></a>";
+			echo "<p style='height:100px;display: table-cell;vertical-align: middle;'><b><font size=3>";
 			echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr[1].">".str_replace("-"," ",$subject)."(".$wr_id_arr[1].")</a></font></b>".$down."</p></span></div>";
 		}
 	} else {
@@ -81,7 +83,9 @@
 						$subject = $title_temp[0];
 						$wr_id_arr = $titleparse[4];
 
-						echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr."><img class='rounded-lg' src=".$img_link." style='float:left; margin-right:20px;' width='180px'></a><p style='height:100px;display: table-cell;vertical-align: middle;'><b><font size=3>";
+						echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span>";
+						echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr."><img class='rounded-lg' src=".$img_link." style='float:left; margin-right:20px;' width='180px'></a>";
+						echo "<p style='height:100px;display: table-cell;vertical-align: middle;'><b><font size=3>";
 						echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr.">".str_replace("-"," ",$subject)."(".$wr_id_arr.")</a></font>[<font color=red>".$term."</font>]".$down."</p></span></div>";
 					} else {
 						break;
@@ -129,7 +133,9 @@
 						$subject = $title_temp[0];
 						$wr_id_arr = $titleparse[4];
 
-						echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span><a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr."><img class='rounded-lg' src=".$img_link." style='float:left; margin-right:20px;' width='180px'></a><p style='height:100px;display: table-cell;vertical-align: middle;'><b><font size=3>";
+						echo "<br><div class='card' style='padding:10px 0px 10px 0px;'><span>";
+						echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr."><img class='rounded-lg' src=".$img_link." style='float:left; margin-right:20px;' width='180px'></a>";
+						echo "<p style='height:100px;display: table-cell;vertical-align: middle;'><b><font size=3>";
 						echo "<a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id_arr.">".str_replace("-"," ",$subject)."(".$wr_id_arr.")</a></font>[<font color=red>".$term."</font>]".$down."</p></span></div>";
 					} else {
 						break;

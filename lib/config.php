@@ -18,4 +18,5 @@
 	$manga_view = $config['manga_view'];
 	$list_count = $config['list_count'];
 	$try_count = $config['try_count'];
+	$is_adult = $config['is_adult'];
 ?>
