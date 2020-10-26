@@ -8,7 +8,8 @@
 	include('../lib/config.php');
 	include('../lib/simple_html_dom.php');
 
-	$target = "https://linktong1.com/bbs/board.php?bo_table=webtoon&wr_id=10";
+//	$target = "https://linktong1.com/bbs/board.php?bo_table=webtoon&wr_id=10";
+	$target = $toonkor_url;
 
 	$get_html_contents = file_get_html($target);
 	for($html_c = 0; $html_c < $try_count; $html_c++){
@@ -20,6 +21,10 @@
 		}
 	}
 
+	foreach($get_html_contents->find('a.navbar-brand') as $e){
+		$newurl = $e->href;
+	}
+/*
 	if ( strlen($get_html_contents) > 0 ) {
 		$strpos = explode('<table border="1" style="width:100%;">',$get_html_contents);
 		$strpos2 = explode('</table>',$strpos[1]);
@@ -30,7 +35,7 @@
 			break;
 		}
 	}
-
+*/
 	if ( strlen($newurl) > 0 ) {
 		if ( endsWith($newurl,"/") == false ) $newurl = $newurl."/";
 		$config['toonkor_url'] = $newurl;
