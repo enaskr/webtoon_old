@@ -1,3 +1,6 @@
+<?php
+	include('./lib/config.php');
+?>
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
@@ -42,6 +45,22 @@
 					<a href="./spowiki/?end=END" target="_top">스포위키 완결</a>
 					<a href="./spowiki/update.php" target="_top">주소</a>
 					</div>
+<?php
+	if ( $manga_view == "true" ) {
+?>
+					<div class="group">
+					<a href="./manatoki/" target="_top">마나토끼</a>
+					<a href="./manatoki/?end=END" target="_top">마나토끼 완결</a>
+					<a href="./manatoki/update.php" target="_top">주소</a>
+					</div>
+					<div class="group">
+					<a href="./toonkormanga/" target="_top">툰코만화책</a>
+					<a href="./toonkormanga/?end=END" target="_top">툰코만화책 완결</a>
+					<a href="./toonkormanga/update.php" target="_top">주소</a>
+					</div>
+<?php
+	}
+?>
 				</dd>
 			</dl>
 		</div>
