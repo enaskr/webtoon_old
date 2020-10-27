@@ -49,7 +49,7 @@
 	if ( $manga_view == "true" ) {
 ?>
 					<div class="group">
-					<a href="./manatoki/" target="_top">마나토끼</a>
+					<a href="./manatoki/?isnew=Y" target="_top">마나토끼</a>
 					<a href="./manatoki/?end=END" target="_top">마나토끼 완결</a>
 					<a href="./manatoki/update.php" target="_top">주소</a>
 					</div>

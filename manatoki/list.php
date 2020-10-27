@@ -9,7 +9,7 @@
 <?php
 include('../lib/simple_html_dom.php');
 
-$base_url = $newtoki_url;
+$base_url = $manatoki_url;
 $target = $base_url."bbs/board.php?bo_table=comic&wr_id=".$_GET['wr_id'];
 
 $get_html_contents = file_get_html($target);

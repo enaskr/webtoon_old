@@ -4,7 +4,7 @@
 <?php
 include('../lib/simple_html_dom.php');
 
-	$base_url = $newtoki_url;
+	$base_url = $manatoki_url;
 	$target_episode = $base_url."comic/".$_GET["ws_id"];
 	$title = urldecode($_GET['title']);
 
