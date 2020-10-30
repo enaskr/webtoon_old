@@ -53,11 +53,6 @@
 					<a href="./manatoki/?end=END" target="_top">마나토끼 완결</a>
 					<a href="./manatoki/update.php" target="_top">주소</a>
 					</div>
-					<div class="group">
-					<a href="./toonkormanga/" target="_top">툰코만화책</a>
-					<a href="./toonkormanga/?end=END" target="_top">툰코만화책 완결</a>
-					<a href="./toonkormanga/update.php" target="_top">주소</a>
-					</div>
 <?php
 	}
 ?>

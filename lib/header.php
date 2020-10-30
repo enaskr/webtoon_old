@@ -46,12 +46,6 @@
 	} else {
 	 $strmanatoki = '마나토끼';
 	}
-	if ( strpos($uri, "/toonkormanga/") == true ) {
-	 $strtoonkormanga = '<b><font color="purple">툰코만화</font></b>';
-	 $strtitle = "툰코만화";
-	} else {
-	 $strtoonkormanga = '툰코만화';
-	}
 ?><html>
 <head>
 	<title><?php echo $strtitle; ?></title>
@@ -72,4 +66,4 @@
 	</style>
 </head>
 <body>
-<font size="3"><a href="../">초기화면</a> | <a href="../newtoki/<?php echo $end; ?>"><?php echo $strnewtoki; ?></a> | <a href="../protoon/<?php echo $end; ?>"><?php echo $strprotoon; ?></a> | <a href="../toonkor/<?php echo $end; ?>"><?php echo $strtoonkor; ?></a> | <a href="../funbe/<?php echo $end; ?>"><?php echo $strfunbe; ?></a> | <a href="../spowiki/<?php echo $end; ?>"><?php echo $strspowiki; ?></a><?php if ( $manga_view == "true" ) { ?> | <a href="../manatoki/?<?php echo $end; ?>&isnew=Y"><?php echo $strmanatoki; ?></a> | <a href="../toonkormanga/<?php echo $end; ?>"><?php echo $strtoonkormanga; ?></a><?php } ?></font><br>
+<font size="3"><a href="../">초기화면</a> | <a href="../newtoki/<?php echo $end; ?>"><?php echo $strnewtoki; ?></a> | <a href="../protoon/<?php echo $end; ?>"><?php echo $strprotoon; ?></a> | <a href="../toonkor/<?php echo $end; ?>"><?php echo $strtoonkor; ?></a> | <a href="../funbe/<?php echo $end; ?>"><?php echo $strfunbe; ?></a> | <a href="../spowiki/<?php echo $end; ?>"><?php echo $strspowiki; ?></a><?php if ( $manga_view == "true" ) { ?> | <a href="../manatoki/?<?php echo $end; ?>&isnew=Y"><?php echo $strmanatoki; ?></a></font><br>
