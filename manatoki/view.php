@@ -118,12 +118,12 @@ include('../lib/simple_html_dom.php');
 	$err_arr = array();
 
 	if(strpos($prev_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&target=".urlencode($prevurl)."'>이전화 보기</a></b> | </font>";
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>이전화 보기</a></b> | </font>";
 	} else {
 		echo "이전화없음 | ";
 	}
 	if(strpos($next_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&target=".urlencode($nexturl)."'>다음화 보기</a></b></font>";
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>다음화 보기</a></b></font>";
 	} else {
 		echo "다음화없음";
 	}
@@ -140,12 +140,12 @@ include('../lib/simple_html_dom.php');
 	}
 
 	if(strpos($prev_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&target=".urlencode($prevurl)."'>이전화 보기</a></b> | </font>";
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>이전화 보기</a></b> | </font>";
 	} else {
 		echo "이전화없음 | ";
 	}
 	if(strpos($next_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&target=".urlencode($nexturl)."'>다음화 보기</a></b></font>";
+		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>다음화 보기</a></b></font>";
 	} else {
 		echo "다음화없음";
 	}

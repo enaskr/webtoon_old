@@ -66,4 +66,4 @@
 	</style>
 </head>
 <body>
-<font size="3"><a href="../">초기화면</a> | <a href="../newtoki/<?php echo $end; ?>"><?php echo $strnewtoki; ?></a> | <a href="../protoon/<?php echo $end; ?>"><?php echo $strprotoon; ?></a> | <a href="../toonkor/<?php echo $end; ?>"><?php echo $strtoonkor; ?></a> | <a href="../funbe/<?php echo $end; ?>"><?php echo $strfunbe; ?></a> | <a href="../spowiki/<?php echo $end; ?>"><?php echo $strspowiki; ?></a><?php if ( $manga_view == "true" ) { ?> | <a href="../manatoki/?<?php echo $end; ?>&isnew=Y"><?php echo $strmanatoki; ?></a></font><br>
+<font size="3"><a href="../">초기화면</a> | <a href="../newtoki/<?php echo $end; ?>"><?php echo $strnewtoki; ?></a> | <a href="../protoon/<?php echo $end; ?>"><?php echo $strprotoon; ?></a> | <a href="../toonkor/<?php echo $end; ?>"><?php echo $strtoonkor; ?></a> | <a href="../funbe/<?php echo $end; ?>"><?php echo $strfunbe; ?></a> | <a href="../spowiki/<?php echo $end; ?>"><?php echo $strspowiki; ?></a> | <a href="../manatoki/?<?php echo $end; ?>&isnew=Y"><?php echo $strmanatoki; ?></a></font><br>
