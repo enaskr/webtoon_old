@@ -2,7 +2,7 @@
 	$server_path = (str_replace(basename(__FILE__), "", realpath(__FILE__)));
 	$http_path = (str_replace(basename($_SERVER["PHP_SELF"]),"",$_SERVER["PHP_SELF"]));
 	include($server_path.'../lib/header.php');
-	if ( $userID == "admin" || $userID == "jackie" ) {
+	if ( $userID == "admin") {
 		$conf_sql = "SELECT CONF_NAME, CONF_VALUE, REGDTIME FROM TOON_CONFIG WHERE CONF_NAME='".$_POST["CONF_NAME"]."';";
 		$conf_result = $webtoonDB->query($conf_sql);
 		while($conf = $conf_result->fetchArray(SQLITE3_ASSOC)){

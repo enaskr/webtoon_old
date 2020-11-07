@@ -3,7 +3,7 @@
 	$http_path = (str_replace(basename($_SERVER["PHP_SELF"]),"",$_SERVER["PHP_SELF"]));
 	include($server_path.'../lib/header.php');
 
-	if ( $userID == "admin" || $userID == "jackie" ) {
+	if ( $userID == "admin" ) {
 		$userList = "DELETE FROM TOON_USER WHERE USERID = '".$_POST["userid"]."'; ";
 		$webtoonDB->exec($userList)
 ?>

@@ -17,7 +17,6 @@
 		<div class='item'>
 <?php
 		if ( $cookieMbrNo!=null && strlen($cookieMbrNo) > 0 ) {
-			//$cookieUserName = "jackie";
 			define('KEY', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 			define('KEY_128', substr(KEY,0,128/8));
 			define('KEY_256', substr(KEY,0,256/8));

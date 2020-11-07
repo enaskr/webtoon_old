@@ -48,7 +48,7 @@
 					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
 					<form name="userForm" method="post" action="./userupdate.php"><input type="hidden" name="userid" value="<?php echo $_GET["userid"];  ?>"><input type="hidden" name="uptMode" value="info">
 <?php
-	if ( $userID == "admin" || $userID == "jackie" ) {
+	if ( $userID == "admin" ) {
 		$userList = "SELECT MBR_NO, USERID, PASSWORD, USERNAME, EMAIL, PHONE, Memo, STATUS, REGDTIME, UPTDTIME FROM TOON_USER WHERE USERID = '".$_GET["userid"]."'; ";
 	} else {
 		$userList = "SELECT MBR_NO, USERID, PASSWORD, USERNAME, EMAIL, PHONE, Memo, STATUS, REGDTIME, UPTDTIME FROM TOON_USER WHERE USERID = '".$userID."'; ";

@@ -1,6 +1,6 @@
 <?php
 	include('../lib/header.php');
-	if ( $userID == "admin" || $userID == "jackie" ) {
+	if ( $userID == "admin" ) {
 		$conf_sql = "SELECT TOONSITEID, TOONSITENAME, PATHNAME FROM TOON_SITE_INFO WHERE TOONSITEID='".$_POST["TOONSITEID"]."';";
 		$conf_result = $webtoonDB->query($conf_sql);
 		while($conf = $conf_result->fetchArray(SQLITE3_ASSOC)){

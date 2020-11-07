@@ -5,15 +5,13 @@
 	$cookieMbrNo = $_COOKIE["MBRNO"];
 	$webtoonDB = new SQLite3($server_path.'../lib/webtoon.db');
 	if($webtoonDB->lastErrorCode() == 0){
-		if ( $userID == "admin" || $userID == "jackie" ) {
-			$userList = "SELECT MBR_NO, USERID, PASSWORD, USERNAME, EMAIL, PHONE, Memo, STATUS, REGDTIME, UPTDTIME FROM TOON_USER WHERE USERID = '".$_GET["userid"]."'; ";
-			$webtoonView = $webtoonDB->query($userList);
-			$viewDate = "";
-			$alreadView = "";
-			while($row = $webtoonView->fetchArray(SQLITE3_ASSOC)){         
-				$memmbr_no = $row["MBR_NO"];
-				$memuserID = $row["USERID"];
-			}
+		$userList = "SELECT MBR_NO, USERID, PASSWORD, USERNAME, EMAIL, PHONE, Memo, STATUS, REGDTIME, UPTDTIME FROM TOON_USER WHERE USERID = '".$_GET["userid"]."'; ";
+		$webtoonView = $webtoonDB->query($userList);
+		$viewDate = "";
+		$alreadView = "";
+		while($row = $webtoonView->fetchArray(SQLITE3_ASSOC)){         
+			$memmbr_no = $row["MBR_NO"];
+			$memuserID = $row["USERID"];
 		}
 	}
 	if ( $memmbr_no != null && strlen($memmbr_no) > 0 ) {

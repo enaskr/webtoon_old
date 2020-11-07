@@ -2,7 +2,7 @@
 	include('../lib/header.php');
 	$isSuccess = true;
 
-	if ( $userID == "admin" || $userID == "jackie" ) {
+	if ( $userID == "admin" ) {
 //		echo "userID=".$userID.", uptMode=".$_POST["uptMode"].", new=".strtoupper(hash("sha256", $_POST["newuserpassword"])).", old=".$_POST["userpassword"];
 		if ( $_POST["uptMode"] == "PWD" ) {
 			$userList = "UPDATE TOON_USER SET PASSWORD='".strtoupper(hash("sha256", $_POST["newuserpassword"]))."', UPTDTIME='".date("YmdHis", time())."' WHERE USERID = '".$_POST["userid"]."'; ";

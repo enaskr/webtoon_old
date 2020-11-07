@@ -67,7 +67,7 @@
 					</table>
 
 <?php
-	if ( $userID == "admin" || $userID == "jackie" ) {
+	if ( $userID == "admin" ) {
 ?>
 					<table style="line-height:1.5;border-color:#ffffff;" border=0 width="100%" cellspacing=0 cellpadding=0>
 						<tr style='height:30px;background-color:#f8f8f8' width="100%" height='10'><td width="100%" align="center" valign="middle" id="fold" onClick="chkFold();">▼ ▼ ▼ ▼ 펼치기 ▼ ▼ ▼ ▼</td></tr>

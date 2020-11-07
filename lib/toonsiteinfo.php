@@ -27,7 +27,7 @@
 							<td align="center" style='width:15%;height:25px;font-size:25px;font-weight:bold;color:#000000;'>ID</td><td align="center" style='width:20%;height:25px;font-size:25px;font-weight:bold;color:#000000;'>사이트명</td><td align="center" style='width:20%;height:25px;font-size:25px;font-weight:bold;color:#000000;'>폴더명</td><td align="center" style='width:15%;height:25px;font-size:25px;font-weight:bold;color:#000000;'>저장</td>
 						</tr>
 <?php
-	if ( $userID == "admin" || $userID == "jackie" ) {
+	if ( $userID == "admin" ) {
 		$toonsiteList = "SELECT TOONSITEID, TOONSITENAME, BASEURL, SEARCHURI, RECENTURI, ENDURI, PATHNAME, UPTDTIME FROM TOON_SITE_INFO ORDER BY TOONSITEID; ";
 
 		$webtoonView = $webtoonDB->query($toonsiteList);

@@ -34,7 +34,7 @@
 						</tr>
 <?php
 
-	if ( $userID != "admin" && $userID != "jackie" ) {
+	if ( $userID != "admin" ) {
 		$readonly = " readonly ";
 	} else $readonly = "";
 	$conf_result = $webtoonDB->query("SELECT CONF_NAME, CONF_VALUE, REGDTIME FROM TOON_CONFIG;");
@@ -50,12 +50,6 @@
 			echo "<input type='text' style='border:none; line-height:30px; width:90%;' name='CONF_VALUE' value='".$conf['CONF_VALUE']."' ".$readonly.">";
 		}
 		echo "<input type='button' name='savebtn' value='S' style='border:none;line-height:30px;width:10%;' onClick='saveSetting(this.form);'></form></td>\n";
-		echo "</tr>\n";
-	}
-	if ( $userID == "admin" || $userID == "jackie" ) {
-		echo "<tr style='background-color:#f8f8f8'><form method='post'>";
-		echo "<td style='font-size:15px;color:#8000ff;width:110px;' align=center valign=middle><input type='text' style='border:none; line-height:30px; width:110px;' name='CONF_NAME' value=''></td>";
-		echo "<td style='font-size:15px;color:#8000ff;' align=center valign=middle><input type='text' style='border:none; line-height:30px; width:90%;' name='CONF_VALUE' value=''><input type='button' name='savebtn' value='＋' style='border:none;line-height:30px;width:10%;' onClick='saveSetting(this.form);'></td></form>";
 		echo "</tr>\n";
 	}
 ?>
