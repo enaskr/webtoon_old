@@ -41,7 +41,7 @@
 		echo "<tr style='background-color:#f8f8f8'><td style='width:40px;font-size:16px;color:#8000ff;' align=center valign=middle><a style='margin:0px;padding:0px;' href='list.php?title=".urlencode($toontitle)."&wr_id=".urlencode($toonid)."'>목록</a></td> ";
 		echo "<td style='word-wrap:break-word;height:50px;' valign=middle><a style='margin:0px;padding:0px;font-size:14px;' href='view.php?title=".urlencode($toontitle)."&wr_id=".urlencode($toonid)."&ws_id=".urlencode($epiid)."'>".$epititle;
 		echo "<br><span style='font-size:12px;'>(".$regdtime.")</span></a></td> ";
-		echo "<td style='width:40px;font-size:16px;color=#ff3232;' align=center valign=middle><a style='margin:0px;padding:0px;' href='../lib/remove_view.php?siteid=".$siteid."&toonid=".urlencode($toonid)."&epiurl=".urlencode($dbepiurl)."'>삭제</a></td>";
+		echo "<td style='width:40px;font-size:16px;color=#ff3232;' align=center valign=middle><a style='margin:0px;padding:0px;' href='../lib/remove_view.php?siteid=".$siteid."&toonid=".urlencode($toonid)."'>삭제</a></td>";
 		echo "</tr>\n";
 	}
 ?>
