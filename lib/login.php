@@ -5,16 +5,16 @@
 <meta name='viewport' id='viewport' content='width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0'>
 <meta name='mobile-web-app-capable' content='yes'>
 <title>:::WEBTOON::웹툰:::</title>
-<link rel='stylesheet' href='lib/css/ui.css' type='text/css'>
+<link rel='stylesheet' href='css/ui.css' type='text/css'>
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]> <script src='http://html5shim.googlecode.com/svn/trunk/html5.js'></script> <![endif]-->
-<script src='lib/js/jquery-2.1.4.min.js'></script>
+<script src='js/jquery-2.1.4.min.js'></script>
 </head>
 <body>
 <?php
 	$userid = $_POST["user"];
 	$userpw = $_POST["pass"];
-	$webtoonDB = new SQLite3('../lib/webtoon.db');
+	$webtoonDB = new SQLite3('lib/webtoon.db');
 	if($webtoonDB->lastErrorCode() == 0){
 		if ( $userid !=null && strlen($userid) > 4 && $userpw !=null && strlen($userpw) > 7 ) {
 			$userpassword = strtoupper(hash("sha256", $userpw));
