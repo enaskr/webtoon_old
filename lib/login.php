@@ -14,7 +14,7 @@
 <?php
 	$userid = $_POST["user"];
 	$userpw = $_POST["pass"];
-	$webtoonDB = new SQLite3('lib/webtoon.db');
+	$webtoonDB = new SQLite3('./webtoon.db');
 	if($webtoonDB->lastErrorCode() == 0){
 		if ( $userid !=null && strlen($userid) > 4 && $userpw !=null && strlen($userpw) > 7 ) {
 			$userpassword = strtoupper(hash("sha256", $userpw));
