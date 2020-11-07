@@ -27,23 +27,23 @@
 
 			$conf_result = $webtoonDB->query("SELECT TOONSITEID, PATHNAME FROM TOON_SITE_INFO;");
 			while($conf = $conf_result->fetchArray(SQLITE3_ASSOC)){         
-				if ( $conf["CONF_NAME"] == "newtoki_url" ) {
+				if ( $conf["PATHNAME"] == "newtoki" ) {
 					$newtoki_path = $conf['PATHNAME'];
 					$newtoki_siteid = $conf['TOONSITEID'];
 				}
-				if ( $conf["CONF_NAME"] == "manatoki_url" ) {
+				if ( $conf["PATHNAME"] == "manatoki" ) {
 					$manatoki_path = $conf['PATHNAME'];
 					$manatoki_siteid = $conf['TOONSITEID'];
 				}
-				if ( $conf["CONF_NAME"] == "toonkor_url" ) {
+				if ( $conf["PATHNAME"] == "toonkor" ) {
 					$toonkor_path = $conf['PATHNAME'];
 					$toonkor_siteid = $conf['TOONSITEID'];
 				}
-				if ( $conf["CONF_NAME"] == "funbe_url" ) {
+				if ( $conf["PATHNAME"] == "funbe" ) {
 					$funbe_path = $conf['PATHNAME'];
 					$funbe_siteid = $conf['TOONSITEID'];
 				}
-				if ( $conf["CONF_NAME"] == "11toon_url" ) {
+				if ( $conf["PATHNAME"] == "11toon" ) {
 					$toon11_path = $conf['PATHNAME'];
 					$toon11_siteid = $conf['TOONSITEID'];
 				}

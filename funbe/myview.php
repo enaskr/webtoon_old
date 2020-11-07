@@ -14,7 +14,7 @@
 				<div class='group' style='padding:0px;'>
 					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
 <?php
-	$base_url = $newtoki_url;
+	$base_url = $funbe_url;
 	$siteid = $funbe_siteid;
 
 	$isAlreadyView = "SELECT A.USERID, A.TOONSITEID, A.TOONID, A.TOONTITLE, A.EPIID, A.EPIURL, A.EPITITLE, A.REGDTIME ";
