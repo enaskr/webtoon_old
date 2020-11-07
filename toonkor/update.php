@@ -5,9 +5,7 @@
 </head>
 <body>
 <?php
-	include('../lib/config.php');
-	include('../lib/simple_html_dom.php');
-
+	include('../lib/common.php');
 //	$target = "https://linktong1.com/bbs/board.php?bo_table=webtoon&wr_id=10";
 	$target = $toonkor_url;
 
@@ -39,7 +37,10 @@
 	if ( strlen($newurl) > 0 ) {
 		if ( endsWith($newurl,"/") == false ) $newurl = $newurl."/";
 		$config['toonkor_url'] = $newurl;
-		file_put_contents($server_path.'config.json', json_encode($config,JSON_UNESCAPED_UNICODE));
+		//file_put_contents($server_path.'config.json', json_encode($config,JSON_UNESCAPED_UNICODE));
+		$uptSQL = "UPDATE 'TOON_CONFIG' SET CONF_VALUE = '".$newurl."', REGDTIME = '".$thisTime."' WHERE CONF_NAME = 'toonkor_url';";
+		//echo "SQL=".$uptSQL;
+		$webtoonDB->exec($uptSQL);
 ?>
 	<script type="text/javascript">
 		alert("주소를 성공적으로 업데이트했습니다.");

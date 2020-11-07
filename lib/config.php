@@ -1,22 +1,23 @@
 <?php
-	$file_server_path = realpath(__FILE__);
-	$php_filename = basename(__FILE__);
-	$server_path = str_replace(basename(__FILE__), "", $file_server_path);
+    header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT+9");
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Connection: close");
 
-	if(is_file($server_path.'config.json') == true){
-		$config = json_decode(file_get_contents($server_path.'config.json'), true);
+	if ( $server_path == null || strlen($server_path)==0 ) {
+		$server_path = str_replace(basename(__FILE__), "", str_replace(basename(__FILE__), "", realpath(__FILE__)));
 	}
-	$newtoki_url = $config['newtoki_url'];
-	$manatoki_url = $config['manatoki_url'];
-	$protoon_url = $config['protoon_url'];
-	$toonkor_url = $config['toonkor_url'];
-	$toonkormanga_url = $config['toonkormanga_url'];
-	$funbe_url = $config['funbe_url'];
-	$copytoon_url = $config['copytoon_url'];
-	$toonsarang_url = $config['toonsarang_url'];
-	$spowiki_url = $config['spowiki_url'];
-	$manga_view = $config['manga_view'];
-	$list_count = $config['list_count'];
-	$try_count = $config['try_count'];
-	$is_adult = $config['is_adult'];
+	if ( $http_path == null || strlen($http_path)==0 ) {
+		$http_path = str_replace(basename($_SERVER["PHP_SELF"]),"",$_SERVER["PHP_SELF"]);
+	}
+
+	$req_uri = urldecode($_SERVER['REQUEST_URI']);
+	$php_name = basename($_SERVER["PHP_SELF"]);
+	$req_query = urldecode(getenv("QUERY_STRING"));
+	$this_url = $php_name."?".$req_query;
+
+	$thisTime = date("Y.m.d H:i:s", time()); 
+	$thisDate = date("Ymd", time()); 
 ?>

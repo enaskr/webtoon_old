@@ -29,7 +29,7 @@ nav {
 	border:1px solid #ddd;
 	margin: 0px auto;
 	background: #fff;
-	padding: 10px 25px 10px 25px;
+	padding: 5px 10px 5px 10px;
 	box-sizing: border-box;
 	border-radius: 15px;
 }
@@ -51,8 +51,8 @@ nav {
 	position: relative;
 	color: #fff;
 	font-weight: bold;
-	font-size:24px;
-	padding: 6px 35px 6px 15px;
+	font-size:22px;
+	padding: 6px 25px 6px 15px;
 	background: #8f7ee5;
 	z-index: 1;
 	border-radius:0 15px 0 0;
@@ -66,7 +66,7 @@ nav {
 	top: 9px;
 	color: #fff;
 	font-weight: bold;
-	font-size:24px;
+	font-size:22px;
 	line-height: 1;
 }
 
@@ -102,12 +102,12 @@ nav {
 .item dd a {
 	position: relative;
 	display: block;
-	padding: 14px 10px 13px 15px;
+	padding: 5px 10px 5px 10px;
 	line-height: 1;
 	border-left: 1px solid #ebebeb;
 	border-right: 1px solid #ebebeb;
 	border-bottom: 1px dashed #ebebeb;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
 	color: #666;
 }
@@ -189,14 +189,14 @@ nav {
 		padding: 15px 0;
 		color: #fff;
 		font-weight: bold;
-		font-size: 16px;
+		font-size: 14px;
 		letter-spacing: 2px;
 		background: none;
 	}
 
 	#container {
 		margin: 0;
-		padding: 65px 10px 10px;
+		padding: 25px 10px 10px;
 		background: #f8f8f8;
 		border-radius: 0;
 	}
@@ -226,13 +226,13 @@ nav {
 	
 	.item dd a {
 		position: relative;
-		padding: 10px 10px 10px 35px;
+		padding: 5px 10px 5px 10px;
 	}
 
 	.item dd a:before {
 		content: ' : ';
 		position: absolute;
-		left: 20px;
+		left: 10px;
 		color: #ddd;
 		top: 14px;
 	}
@@ -269,7 +269,7 @@ nav {
 		border-radius: 15px;
 		overflow: hidden;
 		padding: 0 10px 0 35px;
-		font-size: 14px;
+		font-size: 12px;
 		height: 36px;
 		line-height: 34px;
 		box-sizing: border-box;
@@ -282,7 +282,7 @@ nav {
 		margin-top: -10px;
 		right: 15px;
 		color : #ddd;
-		font-size: 20px;
+		font-size: 16px;
 	}
 
 	.item dt:after {

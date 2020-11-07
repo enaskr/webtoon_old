@@ -5,9 +5,7 @@
 </head>
 <body>
 <?php
-	include('../lib/config.php');
-	include('../lib/simple_html_dom.php');
-
+	include('../lib/common.php');
 	$target = $newtoki_url."notice/7754";
 
 	$get_html_contents = file_get_html($target);
@@ -29,8 +27,10 @@
 			$newurl = $e->href;
 			break;
 		}
-	} else {
-		for($i=80;$i < 100;$i++){
+	} 
+	
+	if ( strlen($get_html_contents) == 0 || $newurl == null || strlen($newurl) == 0 ) {
+		for($i=85;$i < 300;$i++){
 			$base_url = "https://newtoki".$i.".com/";
 			$get_html_contents = file_get_html($base_url);
 			if ( strlen($get_html_contents) > 0 ) {
@@ -47,11 +47,17 @@
 
 	if ( strlen($newurl) > 0 ) {
 		if ( endsWith($newurl,"/") == false ) $newurl = $newurl."/";
-		$config['newtoki_url'] = $newurl;
-		file_put_contents($server_path.'config.json', json_encode($config,JSON_UNESCAPED_UNICODE));
+		$webtoonDB->exec("UPDATE 'TOON_CONFIG' SET CONF_VALUE = '".$newurl."', REGDTIME = '".$thisTime."' WHERE CONF_NAME = 'newtoki_url';");
 ?>
 	<script type="text/javascript">
 		alert("주소를 성공적으로 업데이트했습니다.");
+		history.back();
+	</script>
+<?php
+	} else {
+?>
+	<script type="text/javascript">
+		alert("주소 업데이트에 실패했습니다.");
 		history.back();
 	</script>
 <?php

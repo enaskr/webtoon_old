@@ -2,12 +2,13 @@
 	include('../lib/header.php');
 ?>
 <?php
-include('../lib/simple_html_dom.php');
-
-	$base_url = $manatoki_url;
+	$base_url = $newtoki_url;
 	$target_episode = $base_url."comic/".$_GET["ws_id"];
 	$title = urldecode($_GET['title']);
-
+	$siteid = $manatoki_siteid;
+	$toonid = $_GET["wr_id"];
+	$toonurl = "/comic/".$toonid;
+	$epiurl = str_replace($base_url,"/",$target_episode);
 	$get_images = array();
 
 	$url = $target_episode; //주소셋팅
@@ -48,8 +49,37 @@ include('../lib/simple_html_dom.php');
 			$nexturl = $nextparse[4];
 		}
 	}
+?>
+<div id='container'>
+	<div class='item'>
+		<dl>
+			<dt><?php echo "<a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a> <a href='".$target_episode."'><img src='logo.png' height='25px'></a>"; ?></dt>
+			<dd>
+				<div class='group' style='padding:0px;'>
+					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
+					<tr style='background-color:#f8f8f8'>
+						<td colspan="5" style='width:100%;height:10px;font-size:16px;color:#8000ff;' align=center valign=middle></td>
+					</tr>
+<?php
 
-	echo "<font size=4><b><a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a></b></font> <a href='".$target_episode."'><img src='logo.png' height='25px'></a><br>\n";
+	if ( $isLogin ) {
+		$isAlreadyView = "SELECT USERID, TOONSITEID, TOONID, EPIURL, REGDTIME FROM USER_VIEW_TOON ";
+		$isAlreadyView = $isAlreadyView." WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$toonid."' AND EPIID = '".$epiurl."' ";
+		$isAlreadyView = $isAlreadyView." LIMIT 1;";
+		$webtoonView = $webtoonDB->query($isAlreadyView);
+		while($row = $webtoonView->fetchArray(SQLITE3_ASSOC)){         
+			$viewDate = $row["REGDTIME"];
+		}
+		if ( strlen($viewDate) == 0 ) {
+			$sql_view = "INSERT INTO 'USER_VIEW_TOON' ('USERID', 'TOONSITEID', 'TOONID', 'TOONTITLE', 'TOONURL', 'EPIID', 'EPITITLE', 'EPIURL', 'REGDTIME')";
+			$sql_view = $sql_view." VALUES ('".$userID."','".$siteid."','".$toonid."','".$title."','".$toonurl."','".$epiurl."','".$epititle."', '".$this_url."','".$thisTime."'); ";
+			$webtoonDB->exec($sql_view);
+		} else {
+			$sql_view = "UPDATE 'USER_VIEW_TOON' SET REGDTIME = '".$thisTime."' ";
+			$sql_view = $sql_view."WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$toonid."' AND EPIID = '".$epiurl."';";
+			$webtoonDB->exec($sql_view);
+		}
+	}
 
 	$selector_arr = explode("data_attribute: '", $result);
 	$selector = substr($selector_arr[1],0,11);
@@ -112,41 +142,108 @@ include('../lib/simple_html_dom.php');
 	}
 
 	if(count($get_images) < 1 || $get_images[0] == ""){
-		echo "이미지를 불러올 수 없습니다. <a href='list.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."'>".$title."</a> 리스트 보기";
+		echo "<tr style='background-color:#f8f8f8'><td style='width:10%;height:200px;font-size:16px;color:#8000ff;' align=center valign=middle>이미지를 불러올 수 없습니다.</td></tr>";
 		exit();
 	}
 	$err_arr = array();
-
-	if(strpos($prev_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>이전화 보기</a></b> | </font>";
-	} else {
-		echo "이전화없음 | ";
-	}
-	if(strpos($next_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>다음화 보기</a></b></font>";
-	} else {
-		echo "다음화없음";
-	}
-	echo " <br> ";
+?>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prevurl != null && strlen($prevurl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $nexturl != null && strlen($nexturl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prevurl != null && strlen($prevurl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $nexturl != null && strlen($nexturl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+					</tr>
+					<tr style='background-color:#f8f8f8'>
+						<td colspan="5" style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+<?php
 
 	foreach($get_images as $images){
-		if ( substr($images, 0,16) == "https://manatoki" ) {
-			$images = str_replace(substr($images, 0,16).substr($images, 16,2).".net/", $base_url, $images);
+		if ( substr($images, 0,16) == "https://manatoki" && ( substr($images, 19,3) == "com" || substr($images, 19,3) == "net" )) {
+			$images = str_replace(substr($images, 0,23), $base_url, $images);
 		}
-		if ( substr($images, 0,15) == "https://newtoki" ) {
-			$images = str_replace(substr($images, 0,15).substr($images, 15,2).".com/", $base_url, $images);
+		if ( substr($images, 0,15) == "https://newtoki"  && ( substr($images, 18,3) == "com" || substr($images, 18,3) == "net" )) {
+			$images = str_replace(substr($images, 0,22), $base_url, $images);
 		}
 		echo "<img src='".$images."' width='100%'><br>";
 	}
-
-	if(strpos($prev_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>이전화 보기</a></b> | </font>";
-	} else {
-		echo "이전화없음 | ";
-	}
-	if(strpos($next_url, "http") !== false){
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>다음화 보기</a></b></font>";
-	} else {
-		echo "다음화없음";
-	}
 ?>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prevurl != null && strlen($prevurl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $nexturl != null && strlen($nexturl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prevurl != null && strlen($prevurl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prevurl)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $nexturl != null && strlen($nexturl) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($nexturl)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+					</tr>
+					</table>
+				</div>
+			</dd>
+		</dl>
+	</div>
+</div>
+</body>
+</html>

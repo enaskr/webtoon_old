@@ -2,15 +2,14 @@
 	include('../lib/header.php');
 ?>
 <form action="index.php" method="get">
-<input type=text class="form-control mb-1 pb-2" name="keyword" width="150px"><br>
+<input type=text class="form-control mb-1 pb-2" name="keyword" width="150px">
 <input type="hidden" name="user" value="<?= $_GET['user'] ?>">
 <button class="btn m-0 p-1 btn-success btn-block btn-sm" type=submit>검색하기</button>
 </form>
 <?php
-include('../lib/simple_html_dom.php');
-
 $base_url = $manatoki_url;
 $target = $base_url."bbs/board.php?bo_table=comic&wr_id=".$_GET['wr_id'];
+$siteid = $manatoki_siteid;
 
 $get_html_contents = file_get_html($target);
 for($html_c = 0; $html_c < $try_count; $html_c++){
@@ -50,9 +49,30 @@ foreach($get_html_contents->find('div') as $e){
 $author = trim(str_replace("•","",$author));
 $genre = trim(str_replace("•","",$genre));
 $publish = trim(str_replace("•","",$publish));
-
-echo "<font size=5><b>".$title."</b></font><br><div>".$thumb."<p style='height:154px;display: table-cell;vertical-align: middle;'>".$author."<br>".$genre."<br>".$publish."</p></div><br>";
-
+?>
+<div id='container'>
+	<div class='item'>
+		<dl>
+			<dt><?php echo $title; ?></dt>
+			<dd>
+				<div class='group' style='padding:0px;'>
+					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:100%;font-size:16px;color:#8000ff;' align=center valign=middle><?php echo "<img src='".$thumb."' style='width:100%'>"; ?></td>
+					</tr>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:100%;font-size:16px;color:#8000ff;' align=center valign=middle><?php echo $author; ?></td>
+					</tr>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:100%;font-size:16px;color:#8000ff;' align=center valign=middle><?php echo $genre; ?></td>
+					</tr>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:100%;font-size:16px;color:#8000ff;' align=center valign=middle><?php echo $publish; ?></td>
+					</tr>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:100%;height:10px;font-size:16px;color:#8000ff;' align=center valign=middle></td>
+					</tr>
+<?php
 $target_episode = array();
 
 foreach($get_html_contents->find('li.list-item') as $e){
@@ -65,8 +85,31 @@ foreach($get_html_contents->find('li.list-item') as $e){
 		$epititle = strip_tags($g);
 		$epititle = str_replace("화 1 ","화",$epititle);
 		$epititle = str_replace("   1  ","",$epititle);
-		echo "<font size=4><a href='view.php?title=".$_GET['title']."&wr_id=".$_GET['wr_id']."&ws_id=".$epiparse[4]."'>".trim($epititle)."</a></font><br>";
+		$epiurl = str_replace($base_url,"/",$base_url."comic/".$epiparse[4]);
+
+		$isAlreadyView = "SELECT USERID, TOONSITEID, TOONID, EPIURL, REGDTIME FROM USER_VIEW_TOON ";
+		$isAlreadyView = $isAlreadyView." WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$_GET['wr_id']."' AND EPIID='".$epiurl."' ";
+		$isAlreadyView = $isAlreadyView." ORDER BY REGDTIME DESC LIMIT 1;";
+		$webtoonView = $webtoonDB->query($isAlreadyView);
+		$viewDate = "";
+		$alreadyView = "";
+		while($row = $webtoonView->fetchArray(SQLITE3_ASSOC)){         
+			$viewDate = $row["REGDTIME"];
+			$dbepiurl = $row["EPIURL"];
+		}
+		if ( strlen($viewDate) > 15 ) {
+			$alreadyView = "<a href='../lib/remove_view.php?siteid=".$siteid."&toonid=".$_GET['wr_id']."&epiurl=".urlencode($dbepiurl)."'><font size='2'>[ ".$viewDate." viewed ]</font></a>";
+		}
+		echo "<tr style='background-color:#f8f8f8'><td style='width:100%;height:10px;font-size:16px;color:#8000ff;' align='center' valign='middle'><font size=4><a href='view.php?title=".$title."&ws_id=".$epiparse[4]."&wr_id=".$_GET['wr_id']."'>".$epititle."</a></font>".$alreadyView."<br></td></tr>";
 	}			
 }
 
 ?>
+						</table>
+					</div>
+				</dd>
+			</dl>
+		</div>
+	</div>
+</body>
+</html>

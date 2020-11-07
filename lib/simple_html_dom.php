@@ -2360,3 +2360,7 @@ function startsWith($str, $key) {
 function endsWith($str, $key) {
     return $key === "" || (($temp = strlen($str) - strlen($key)) >= 0 && strpos($str, $key, $temp) !== false);
 }
+
+function lastIndexOf($str, $key) {
+    return strlen(strrev(substr(strrev($str),strpos(strrev($str),$key))));
+}

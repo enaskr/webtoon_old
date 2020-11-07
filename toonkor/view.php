@@ -1,10 +1,9 @@
 <?php
 	include('../lib/header.php');
-	include('../lib/simple_html_dom.php');
-
 	$base_url = $toonkor_url;
-	$target = $base_url.$_GET['wr_id'];
+	$target = $base_url.$_GET['ws_id'];
 	$title = urldecode($_GET['title']);
+	$siteid = $toonkor_siteid;
 
 	$get_images = array();
 
@@ -53,20 +52,78 @@
 			}
 		}
 	}
+?>
+<div id='container'>
+	<div class='item'>
+		<dl>
+			<dt><?php echo "<a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a> <a href='".$url."'><img src='logo.png' height='25px'></a>"; ?></dt>
+			<dd>
+				<div class='group' style='padding:0px;'>
+					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
+					<tr style='background-color:#f8f8f8'>
+						<td colspan="5" style='width:100%;height:10px;font-size:16px;color:#8000ff;' align=center valign=middle></td>
+					</tr>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prev_epi != null && strlen($prev_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prev_epi)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $next_epi != null && strlen($next_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($next_epi)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prev_epi != null && strlen($prev_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prev_epi)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $next_epi != null && strlen($next_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($next_epi)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+					</tr>
+					<tr style='background-color:#f8f8f8'>
+						<td colspan="5" style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+<?php
 
-	echo "<font size=4><b><a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a></b></font>:::<a href='".$url."'><img src='logo.png' height='25px'></a><br>\n";
-
-	if ( $prev_url != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($prev_epi)."'>이전화 보기</a></b> | </font>";
-	} else {
-		echo "이전화없음 | ";
+	if ( $isLogin ) {
+		$isAlreadyView = "SELECT USERID, TOONSITEID, TOONID, EPIURL, REGDTIME FROM USER_VIEW_TOON ";
+		$isAlreadyView = $isAlreadyView." WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$_GET['wr_id']."' AND EPIID = '"."/".$_GET['ws_id']."' ";
+		$isAlreadyView = $isAlreadyView." LIMIT 1;";
+		$webtoonView = $webtoonDB->query($isAlreadyView);
+		while($row = $webtoonView->fetchArray(SQLITE3_ASSOC)){         
+			$viewDate = $row["REGDTIME"];
+		}
+		if ( strlen($viewDate) == 0 ) {
+			$sql_view = "INSERT INTO 'USER_VIEW_TOON' ('USERID', 'TOONSITEID', 'TOONID', 'TOONTITLE', 'TOONURL', 'EPIID', 'EPITITLE', 'EPIURL', 'REGDTIME')";
+			$sql_view = $sql_view." VALUES ('".$userID."','".$siteid."','".$_GET['wr_id']."','".$title."','"."/".$_GET['wr_id']."','"."/".$_GET['ws_id']."','".$epititle."', '".$this_url."','".$thisTime."'); ";
+			$webtoonDB->exec($sql_view);
+		} else {
+			$sql_view = "UPDATE 'USER_VIEW_TOON' SET REGDTIME = '".$thisTime."' ";
+			$sql_view = $sql_view."WHERE USERID = '".$userID."' AND TOONSITEID = '/".$siteid."' AND TOONID = '".$_GET['wr_id']."' AND EPIID = '/".$_GET['ws_id']."';";
+			$webtoonDB->exec($sql_view);
+		}
 	}
-	if ( $next_url != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($next_epi)."'>다음화 보기</a></b></font>";
-	} else {
-		echo "다음화없음";
-	}
-	echo " <br> ";
 
 	$conts_arr = explode("var toon_img = ", $get_html_contents);
 	$conts = trim($conts_arr[1]);
@@ -81,15 +138,51 @@
 		if ( startsWith($get_images, "http") == false ) $get_images = $base_url.$get_images;
 		echo "<img src='".$get_images."' width='100%'><br>";
 	}
-
-	if ( $prev_url != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($prev_epi)."'>이전화 보기</a></b> | </font>";
-	} else {
-		echo "이전화없음 | ";
-	}
-	if ( $next_url != null ) {
-		echo "<font size=3><b><a href='view.php?title=".urlencode($title)."&wr_id=".urlencode($next_epi)."'>다음화 보기</a></b></font>";
-	} else {
-		echo "다음화없음";
-	}
 ?>
+					<tr style='background-color:#f8f8f8'>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prev_epi != null && strlen($prev_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prev_epi)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $next_epi != null && strlen($next_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($next_epi)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $prev_epi != null && strlen($prev_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($prev_epi)."'>◀</a>";
+							} else {
+								echo "◁";
+							}
+						?>
+						</td>
+						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
+						<?php
+							if( $next_epi != null && strlen($next_epi) > 0 ){
+									echo "<a href='view.php?title=".urlencode($title)."&wr_id=".$_GET['wr_id']."&ws_id=".urlencode($next_epi)."'>▶</a>";
+							} else {
+								echo "▷";
+							}
+						?>
+						</td>
+					</tr>
+					</table>
+				</div>
+			</dd>
+		</dl>
+	</div>
+</div>
+</body>
+</html>

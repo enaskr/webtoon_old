@@ -1,3 +1,6 @@
+<?php
+	header('Content-Type: text/html; charset=UTF-8');
+?>
 <html>
 <head>
 	<title>웹툰 주소 업데이트</title>
@@ -6,11 +9,13 @@
 <body>
 <?php
 	include('../lib/common.php');
-	$target = "https://linktong1.com/bbs/board.php?bo_table=webtoon&wr_id=38";
+	include_once('./idna_convert.class.php');
+
+	$target = "http://11toon1.com/";
 
 	$get_html_contents = file_get_html($target);
 	for($html_c = 0; $html_c < $try_count; $html_c++){
-		if(strlen($get_html_contents) > 50000){
+		if(strlen($get_html_contents) > 500){
 			break;
 		} else {
 			$get_html_contents = "";
@@ -19,21 +24,23 @@
 	}
 
 	if ( strlen($get_html_contents) > 0 ) {
-		$strpos = explode('<table border="1" style="width:100%;">',$get_html_contents);
-		$strpos2 = explode('</table>',$strpos[1]);
-		$newstr = $strpos2[0];
-		$newtokistr = str_get_html($newstr);
-		foreach($newtokistr->find('a') as $e){
-			$newurl = $e->href;
-			break;
+		$idx = 0;
+		foreach($get_html_contents->find('li') as $e) {
+			if ( $idx == 2 ) {
+				$f = str_get_html($e->innertext);
+				foreach($f->find('a') as $g) {
+					$newurl = $g->href;
+				}
+			}
+			$idx++;
 		}
 	}
 
 	if ( strlen($newurl) > 0 ) {
 		if ( endsWith($newurl,"/") == false ) $newurl = $newurl."/";
-		$config['funbe_url'] = $newurl;
-		//file_put_contents($server_path.'config.json', json_encode($config,JSON_UNESCAPED_UNICODE));
-		$webtoonDB->exec("UPDATE 'TOON_CONFIG' SET CONF_VALUE = '".$newurl."', REGDTIME = '".$thisTime."' WHERE CONF_NAME = 'funbe_url';");
+		$IDN = new idna_convert();
+		$newurl = $IDN->encode($newurl);
+		$webtoonDB->exec("UPDATE 'TOON_CONFIG' SET CONF_VALUE = '".$newurl."', REGDTIME = '".$thisTime."' WHERE CONF_NAME = '11toon_url';");
 ?>
 	<script type="text/javascript">
 		alert("주소를 성공적으로 업데이트했습니다.");
@@ -43,7 +50,7 @@
 	} else {
 ?>
 	<script type="text/javascript">
-		alert("주소를 업데이트하지 못하였습니다.");
+		alert("주소 업데이트에 실패했습니다.");
 		history.back();
 	</script>
 <?php
@@ -51,4 +58,3 @@
 ?>
 </body>
 </html>
-
