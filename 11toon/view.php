@@ -34,18 +34,6 @@
 			$epititle = trim(strip_tags($e));
 		}
 	}
-?>
-<div id='container'>
-	<div class='item'>
-		<dl>
-			<dt><?php echo "<a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a> <a href='".$target_episode."'><img src='logo.png' height='25px'></a>"; ?></dt>
-			<dd>
-				<div class='group' style='padding:0px;'>
-					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
-					<tr style='background-color:#f8f8f8'>
-						<td colspan="5" style='width:100%;height:10px;font-size:16px;color:#8000ff;' align=center valign=middle></td>
-					</tr>
-<?php
 
 	$isAlreadyView = "SELECT USERID, TOONSITEID, TOONID, EPIURL, REGDTIME FROM USER_VIEW_TOON ";
 	$isAlreadyView = $isAlreadyView." WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$toonid."' AND EPIID = '".$epiurl."' ";
@@ -87,7 +75,117 @@
 			$idx++;
 		}
 	}
+
+
+	$selector_arr = explode("var img_list = [", $result);
+	$html_arr = explode("];", $selector_arr[1]);
+	$img_html = $html_arr[0];
+	$img_html = str_replace('"','',$img_html);
+
+	$imgurl = explode(",",$img_html);
 ?>
+<script type="text/javascript">
+		function view(mode) {
+			if ( mode=="pageView") {
+				document.getElementById("closeDiv1").style.display = "";
+				document.getElementById("closeDiv2").style.display = "";
+				document.getElementById("prevDiv").style.display = "";
+				document.getElementById("nextDiv").style.display = "";
+				document.getElementById("listview").style.display = "";
+				document.getElementById("container").style.display = "none";
+			} else {
+				document.getElementById("closeDiv1").style.display = "none";
+				document.getElementById("closeDiv2").style.display = "none";
+				document.getElementById("prevDiv").style.display = "none";
+				document.getElementById("nextDiv").style.display = "none";
+				document.getElementById("listview").style.display = "none";
+				document.getElementById("container").style.display = "";
+			}
+		}
+
+		function prev() {
+			if ( imageIndex > 0 ) {
+				document.getElementById("imgview").src=img_list[imageIndex-1];
+				imageIndex = imageIndex-1;
+			} else {
+				document.getElementById("imgview").src=img_list[0];
+				imageIndex = 0;
+			}
+		}
+		function next() {
+			if ( imageIndex+1 >= imageSize ) {
+				document.getElementById("imgview").src=img_list[imageSize-1];
+				imageIndex = imageSize-1;
+			} else {
+				document.getElementById("imgview").src=img_list[imageIndex+1];
+				imageIndex = imageIndex+1;
+			}
+		}
+</script>
+
+<div id="closeDiv1" style="display:none;top:5%;right:10px;position:absolute;" onClick="view('listView');"><img src="../lib/img/close.png" width="30" height="30"></div>
+<div id="prevDiv" style="display:none;top:10%;left:10px;height:80%;width:45%;position:absolute;" valign="middle" onClick="prev();"></div>
+<div id="nextDiv" style="display:none;top:10%;right:10px;height:80%;width:45%;position:absolute;" valign="middle" onClick="next();"></div>
+<div id="closeDiv2" style="display:none;top:90%;left:10px;height:10%;width:95%;position:absolute;" onClick="view('listView');"></div>
+<table id="listview" style="display:none;line-height:1.5;border-color:#ffffff;height:100%;" border=1 width="100%" cellspacing=0 cellpadding=0>
+<tr style='background-color:#f8f8f8'>
+	<td colspan="5" style='width:100%;height:100%;font-size:16px;color:#8000ff;' align=center valign=middle>
+		<img id='imgview' src='' style='max-height:100%;max-width:100%;'>
+		<script type="text/javascript">
+			var imageIndex = 0;
+<?php
+	$imgidx = 0;
+	echo "		var imageSize = ".sizeof($imgurl).";\n";
+	echo "		var img_list = new Array(";
+	foreach($imgurl as $images){
+		if ( substr($images, 0,16) == "https://manatoki" && ( substr($images, 19,3) == "com" || substr($images, 19,3) == "net" )) {
+			$images = str_replace(substr($images, 0,23), $base_url, $images);
+		}
+		if ( substr($images, 0,15) == "https://newtoki"  && ( substr($images, 18,3) == "com" || substr($images, 18,3) == "net" )) {
+			$images = str_replace(substr($images, 0,22), $base_url, $images);
+		}
+		if ( sizeof($imgurl) == $imgidx+1 ) {
+			echo '"'.$images.'");';
+		} else echo '"'.$images.'", ';
+		$imgidx++;
+	}
+?>
+
+		document.getElementById("imgview").src=img_list[0];
+
+		function prev() {
+			if ( imageIndex > 0 ) {
+				document.getElementById("imgview").src=img_list[imageIndex-1];
+				imageIndex = imageIndex-1;
+			} else {
+				document.getElementById("imgview").src=img_list[0];
+				imageIndex = 0;
+			}
+		}
+		function next() {
+			if ( imageIndex+1 >= imageSize ) {
+				document.getElementById("imgview").src=img_list[imageSize-1];
+				imageIndex = imageSize-1;
+			} else {
+				document.getElementById("imgview").src=img_list[imageIndex+1];
+				imageIndex = imageIndex+1;
+			}
+		}
+		</script>
+	</td>
+</tr>
+</table>
+
+<div id='container' style="display:">
+	<div class='item'>
+		<dl>
+			<dt><?php echo "<a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a> <a href='".$target_episode."'><img src='logo.png' height='25px'></a>"; ?></dt>
+			<dd>
+				<div class='group' style='padding:0px;'>
+					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
+					<tr style='background-color:#f8f8f8'>
+						<td colspan="5" style='width:100%;height:10px;font-size:16px;color:#8000ff;' align=center valign=middle></td>
+					</tr>
 					<tr style='background-color:#f8f8f8'>
 						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
 						<?php
@@ -107,7 +205,7 @@
 							}
 						?>
 						</td>
-						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle onClick="view('pageView');">&nbsp;</td>
 						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
 						<?php
 							if( $prevwsis != null && strlen($prevwsis) > 0 ){
@@ -131,12 +229,6 @@
 						<td colspan="5" style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
 <?php
 
-	$selector_arr = explode("var img_list = [", $result);
-	$html_arr = explode("];", $selector_arr[1]);
-	$img_html = $html_arr[0];
-	$img_html = str_replace('"','',$img_html);
-
-	$imgurl = explode(",",$img_html);
 	foreach($imgurl as $images){
 		if ( substr($images, 0,16) == "https://manatoki" ) {
 			$images = str_replace(substr($images, 0,16).substr($images, 16,2).".net/", $base_url, $images);
@@ -166,7 +258,7 @@
 							}
 						?>
 						</td>
-						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle onClick="view('pageView');">&nbsp;</td>
 						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
 						<?php
 							if( $prevwsis != null && strlen($prevwsis) > 0 ){

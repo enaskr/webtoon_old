@@ -2,7 +2,7 @@
 	include('../lib/header.php');
 ?>
 <?php
-	$base_url = $newtoki_url;
+	$base_url = $manatoki_url;
 	$target_episode = $base_url."comic/".$_GET["ws_id"];
 	$title = urldecode($_GET['title']);
 	$siteid = $manatoki_siteid;
@@ -49,37 +49,7 @@
 			$nexturl = $nextparse[4];
 		}
 	}
-?>
-<div id='container'>
-	<div class='item'>
-		<dl>
-			<dt><?php echo "<a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a> <a href='".$target_episode."'><img src='logo.png' height='25px'></a>"; ?></dt>
-			<dd>
-				<div class='group' style='padding:0px;'>
-					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
-					<tr style='background-color:#f8f8f8'>
-						<td colspan="5" style='width:100%;height:10px;font-size:16px;color:#8000ff;' align=center valign=middle></td>
-					</tr>
-<?php
 
-	if ( $isLogin ) {
-		$isAlreadyView = "SELECT USERID, TOONSITEID, TOONID, EPIURL, REGDTIME FROM USER_VIEW_TOON ";
-		$isAlreadyView = $isAlreadyView." WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$toonid."' AND EPIID = '".$epiurl."' ";
-		$isAlreadyView = $isAlreadyView." LIMIT 1;";
-		$webtoonView = $webtoonDB->query($isAlreadyView);
-		while($row = $webtoonView->fetchArray(SQLITE3_ASSOC)){         
-			$viewDate = $row["REGDTIME"];
-		}
-		if ( strlen($viewDate) == 0 ) {
-			$sql_view = "INSERT INTO 'USER_VIEW_TOON' ('USERID', 'TOONSITEID', 'TOONID', 'TOONTITLE', 'TOONURL', 'EPIID', 'EPITITLE', 'EPIURL', 'REGDTIME')";
-			$sql_view = $sql_view." VALUES ('".$userID."','".$siteid."','".$toonid."','".$title."','".$toonurl."','".$epiurl."','".$epititle."', '".$this_url."','".$thisTime."'); ";
-			$webtoonDB->exec($sql_view);
-		} else {
-			$sql_view = "UPDATE 'USER_VIEW_TOON' SET REGDTIME = '".$thisTime."' ";
-			$sql_view = $sql_view."WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$toonid."' AND EPIID = '".$epiurl."';";
-			$webtoonDB->exec($sql_view);
-		}
-	}
 
 	$selector_arr = explode("data_attribute: '", $result);
 	$selector = substr($selector_arr[1],0,11);
@@ -141,6 +111,130 @@
 		}
 	}
 
+?>
+<script type="text/javascript">
+		function view(mode) {
+			if ( mode=="pageView") {
+				document.getElementById("closeDiv1").style.display = "";
+				document.getElementById("closeDiv2").style.display = "";
+				document.getElementById("prevDiv").style.display = "";
+				document.getElementById("nextDiv").style.display = "";
+				document.getElementById("listview").style.display = "";
+				document.getElementById("container").style.display = "none";
+			} else {
+				document.getElementById("closeDiv1").style.display = "none";
+				document.getElementById("closeDiv2").style.display = "none";
+				document.getElementById("prevDiv").style.display = "none";
+				document.getElementById("nextDiv").style.display = "none";
+				document.getElementById("listview").style.display = "none";
+				document.getElementById("container").style.display = "";
+			}
+		}
+
+		function prev() {
+			if ( imageIndex > 0 ) {
+				document.getElementById("imgview").src=img_list[imageIndex-1];
+				imageIndex = imageIndex-1;
+			} else {
+				document.getElementById("imgview").src=img_list[0];
+				imageIndex = 0;
+			}
+		}
+		function next() {
+			if ( imageIndex+1 >= imageSize ) {
+				document.getElementById("imgview").src=img_list[imageSize-1];
+				imageIndex = imageSize-1;
+			} else {
+				document.getElementById("imgview").src=img_list[imageIndex+1];
+				imageIndex = imageIndex+1;
+			}
+		}
+</script>
+
+<div id="closeDiv1" style="display:none;top:5%;right:10px;position:absolute;" onClick="view('listView');"><img src="../lib/img/close.png" width="30" height="30"></div>
+<div id="prevDiv" style="display:none;top:10%;left:10px;height:80%;width:45%;position:absolute;" valign="middle" onClick="prev();"></div>
+<div id="nextDiv" style="display:none;top:10%;right:10px;height:80%;width:45%;position:absolute;" valign="middle" onClick="next();"></div>
+<div id="closeDiv2" style="display:none;top:90%;left:10px;height:10%;width:95%;position:absolute;" onClick="view('listView');"></div>
+<table id="listview" style="display:none;line-height:1.5;border-color:#ffffff;height:100%;" border=1 width="100%" cellspacing=0 cellpadding=0>
+<tr style='background-color:#f8f8f8'>
+	<td colspan="5" style='width:100%;height:100%;font-size:16px;color:#8000ff;' align=center valign=middle>
+		<img id='imgview' src='' style='max-height:100%;max-width:100%;'>
+		<script type="text/javascript">
+			var imageIndex = 0;
+<?php
+	$imgidx = 0;
+	echo "		var imageSize = ".sizeof($get_images).";\n";
+	echo "		var img_list = new Array(";
+	foreach($get_images as $images){
+		if ( substr($images, 0,16) == "https://manatoki" && ( substr($images, 19,3) == "com" || substr($images, 19,3) == "net" )) {
+			$images = str_replace(substr($images, 0,23), $base_url, $images);
+		}
+		if ( substr($images, 0,15) == "https://newtoki"  && ( substr($images, 18,3) == "com" || substr($images, 18,3) == "net" )) {
+			$images = str_replace(substr($images, 0,22), $base_url, $images);
+		}
+		if ( sizeof($get_images) == $imgidx+1 ) {
+			echo '"'.$images.'");';
+		} else echo '"'.$images.'", ';
+		$imgidx++;
+	}
+?>
+
+		document.getElementById("imgview").src=img_list[0];
+
+		function prev() {
+			if ( imageIndex > 0 ) {
+				document.getElementById("imgview").src=img_list[imageIndex-1];
+				imageIndex = imageIndex-1;
+			} else {
+				document.getElementById("imgview").src=img_list[0];
+				imageIndex = 0;
+			}
+		}
+		function next() {
+			if ( imageIndex+1 >= imageSize ) {
+				document.getElementById("imgview").src=img_list[imageSize-1];
+				imageIndex = imageSize-1;
+			} else {
+				document.getElementById("imgview").src=img_list[imageIndex+1];
+				imageIndex = imageIndex+1;
+			}
+		}
+		</script>
+	</td>
+</tr>
+</table>
+
+<div id='container' style="display:">
+	<div class='item'>
+		<dl>
+			<dt><?php echo "<a href='list.php?wr_id=".$_GET['wr_id']."&title=".urlencode($title)."'>".$epititle."</a> <a href='".$target_episode."'><img src='logo.png' height='25px'></a>"; ?></dt>
+			<dd>
+				<div class='group' style='padding:0px;'>
+					<table style="line-height:1.5;border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
+					<tr style='background-color:#f8f8f8'>
+						<td colspan="5" style='width:100%;height:10px;font-size:16px;color:#8000ff;' align=center valign=middle></td>
+					</tr>
+<?php
+
+	if ( $isLogin ) {
+		$isAlreadyView = "SELECT USERID, TOONSITEID, TOONID, EPIURL, REGDTIME FROM USER_VIEW_TOON ";
+		$isAlreadyView = $isAlreadyView." WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$toonid."' AND EPIID = '".$epiurl."' ";
+		$isAlreadyView = $isAlreadyView." LIMIT 1;";
+		$webtoonView = $webtoonDB->query($isAlreadyView);
+		while($row = $webtoonView->fetchArray(SQLITE3_ASSOC)){         
+			$viewDate = $row["REGDTIME"];
+		}
+		if ( strlen($viewDate) == 0 ) {
+			$sql_view = "INSERT INTO 'USER_VIEW_TOON' ('USERID', 'TOONSITEID', 'TOONID', 'TOONTITLE', 'TOONURL', 'EPIID', 'EPITITLE', 'EPIURL', 'REGDTIME')";
+			$sql_view = $sql_view." VALUES ('".$userID."','".$siteid."','".$toonid."','".$title."','".$toonurl."','".$epiurl."','".$epititle."', '".$this_url."','".$thisTime."'); ";
+			$webtoonDB->exec($sql_view);
+		} else {
+			$sql_view = "UPDATE 'USER_VIEW_TOON' SET REGDTIME = '".$thisTime."' ";
+			$sql_view = $sql_view."WHERE USERID = '".$userID."' AND TOONSITEID = '".$siteid."' AND TOONID = '".$toonid."' AND EPIID = '".$epiurl."';";
+			$webtoonDB->exec($sql_view);
+		}
+	}
+
 	if(count($get_images) < 1 || $get_images[0] == ""){
 		echo "<tr style='background-color:#f8f8f8'><td style='width:10%;height:200px;font-size:16px;color:#8000ff;' align=center valign=middle>이미지를 불러올 수 없습니다.</td></tr>";
 		exit();
@@ -166,7 +260,7 @@
 							}
 						?>
 						</td>
-						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle onClick="view('pageView');">&nbsp;</td>
 						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
 						<?php
 							if( $prevurl != null && strlen($prevurl) > 0 ){
@@ -219,7 +313,7 @@
 							}
 						?>
 						</td>
-						<td style='font-size:16px;color:#8000ff;' align=center valign=middle>&nbsp;</td>
+						<td style='font-size:16px;color:#8000ff;' align=center valign=middle onClick="view('pageView');">&nbsp;</td>
 						<td style='width:10%;font-size:16px;color:#8000ff;' align=center valign=middle>
 						<?php
 							if( $prevurl != null && strlen($prevurl) > 0 ){
