@@ -31,9 +31,10 @@ foreach($get_html_contents->find('span') as $e){
 		break;
 	}
 }
-foreach($get_html_contents->find('div.view-img') as $e){
-	$thumb = $e->innertext;
-	$thumb = str_replace(">"," style='float:left; max-height:154px; margin-right:20px;'>", $thumb);
+foreach($get_html_contents->find('div.view-content1') as $e){
+	foreach($e->find('img') as $g){
+		$thumb = $g->src;
+	}
 }
 $idx = 0;
 foreach($get_html_contents->find('div') as $e){
