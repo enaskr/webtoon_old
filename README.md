@@ -6,10 +6,14 @@ imueRoid님이 공개해주신 소스를 마개조하여 만들었습니다.<br>
 <br><br>
 
 * 설치방법<br>
-Webserver의 docbase 하위에 복사해 놓고, lib/webtoon.db 파일의 권한을 777로 변경해주시면 됩니다.<br><br>
+Webserver의 docbase 하위에 복사해 놓고, lib/webtoon.db 파일의 권한을 777로 변경해주시면 됩니다.<br>
+그리고, lib 폴더의 권한도 777로 변경해야합니다.<br><br>
+chmod 777 [Webserver docbase]/[압축해제폴더명]/lib/<br>
 chmod 777 [Webserver docbase]/[압축해제폴더명]/lib/webtoon.db<br><br>
 
 * 초기 비밀번호는 admin / sjvawebtoon 입니다.<br><br>
+
+* 위의 권한변경을 하지 않을 경우 비밀번호 변경 등의 DB Update, Insert가 되지 않습니다. Select만 가능합니다.<br><br>
 
 * 초기화면에는 각 사이트마다 3개의 링크가 있습니다.<br>
 - 첫번재 링크는 최근 업데이트 목록이 기본으로 나오는 페이지<br>
