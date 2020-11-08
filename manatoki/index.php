@@ -118,7 +118,6 @@
 				<div class='group' style='padding:0px;'>
 					<table style="border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
 <?php
-				// 업데이트 페이지( /bbs/page.php?hid=update&page=1 )의 목록 가져오기
 				for($p = 1; $p <= 1; $p++) {
 					$get_html_contents = file_get_html($base_url."bbs/page.php?hid=update&page=".$p);
 					for($html_c = 0; $html_c < $try_count; $html_c++){
@@ -149,9 +148,8 @@
 								$title = trim($titlepos[0]);
 							}
 							foreach($f->find('div') as $g){
-								if($e->class == "post-text post-ko txt-short ellipsis"){
-									$content = trim(strip_tags($e));
-									echo $content;
+								if($g->class == "post-text post-ko txt-short ellipsis"){
+									$content = trim(strip_tags($g));
 									$content = "[작가: ".$content;
 									$content = str_replace("&nbsp;","] [장르: ",$content);
 									$content = $content."]";
@@ -176,7 +174,7 @@
 							}
 
 							echo "<tr style='background-color:#f8f8f8'><td style='width:86px;font-size:16px;color:#8000ff;' align=center valign=middle><a href=list.php?title=".urlencode($title)."&wr_id=".$wr_id." style='margin:0px;padding:3px 3px 3px 3px'><img class='rounded-lg' src=".$img_link." style='width:80px;max-height:80px;'></a></td> ";
-							echo "<td style='word-wrap:break-word;max-height:80px;' valign=middle><a href=list.php?title=".urlencode($title)."&wr_id=".$wr_id.">".$title."<br>".$content."<br>".$alreadyView."</a>\n";
+							echo "<td style='word-wrap:break-word;max-height:80px;' valign=middle><a href=list.php?title=".urlencode($title)."&wr_id=".$wr_id.">".$title."<br><font size=2>".$content."</font><br>".$alreadyView."</a>\n";
 							echo "</tr>\n";
 						} else {
 							break;
@@ -260,7 +258,7 @@
 							}
 
 							echo "<tr style='background-color:#f8f8f8'><td style='width:86px;font-size:16px;color:#8000ff;' align=center valign=middle><a href=list.php?title=".urlencode($title)."&wr_id=".$wr_id." style='margin:0px;padding:3px 3px 3px 3px'><img class='rounded-lg' src=".$img_link." style='width:80px;max-height:80px;'></a></td> ";
-							echo "<td style='word-wrap:break-word;max-height:80px;' valign=middle><a href=list.php?title=".urlencode($title)."&wr_id=".$wr_id.">".$title."<br>".$content."<br>".$alreadyView."</a>\n";
+							echo "<td style='word-wrap:break-word;max-height:80px;' valign=middle><a href=list.php?title=".urlencode($subject)."&wr_id=".$wr_id.">".$subject."<br><font size=2>[".$author."]</font><br>".$alreadyView."</a>\n";
 							echo "</tr>\n";
 						} else {
 							break;

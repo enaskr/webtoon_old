@@ -31,7 +31,6 @@
 					<table style="border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
 <?php
 		$target = $base_url."bbs/search.php?stx=".$_GET['keyword'];
-	echo "<script type='text/javascript'>console.log('TARGET URL=".$target."');</script>";
 
 		$get_html_contents = file_get_html($target);
 		for($html_c = 0; $html_c < 3; $html_c++){
@@ -97,7 +96,6 @@
 					<table style="border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
 <?php
 			for($p = 1; $p <= 1; $p++) {
-	echo "<script type='text/javascript'>console.log('TARGET URL=".$base_url."webtoon/p".$p.urldecode("?toon=%EC%9D%BC%EB%B0%98%EC%9B%B9%ED%88%B0")."');</script>";
 				$get_html_contents = file_get_html($base_url."webtoon/p".$p."?toon=%EC%9D%BC%EB%B0%98%EC%9B%B9%ED%88%B0");
 				for($html_c = 0; $html_c < 3; $html_c++){
 					if(strlen($get_html_contents) > 50000){
@@ -172,7 +170,6 @@
 					<table style="border-color:#ffffff;" border=1 width="100%" cellspacing=0 cellpadding=0>
 <?php
 			for($p = 1; $p <= 4; $p++) {
-	echo "<script type='text/javascript'>console.log('TARGET URL=".$base_url."webtoon/p".$p.urldecode("?toon=%EC%99%84%EA%B2%B0%EC%9B%B9%ED%88%B0")."');</script>";
 				$get_html_contents = file_get_html($base_url."webtoon/p".$p."?toon=%EC%99%84%EA%B2%B0%EC%9B%B9%ED%88%B0");
 				for($html_c = 0; $html_c < 3; $html_c++){
 					if(strlen($get_html_contents) > 50000){
