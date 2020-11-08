@@ -17,6 +17,7 @@
 	$php_name = basename($_SERVER["PHP_SELF"]);
 	$req_query = urldecode(getenv("QUERY_STRING"));
 	$this_url = $php_name."?".$req_query;
+	$loopcnt = 0;
 
 	$thisTime = date("Y.m.d H:i:s", time()); 
 	$thisDate = date("Ymd", time()); 
