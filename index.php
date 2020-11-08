@@ -71,12 +71,12 @@
 					<form name="userLogin" method="post" action="./lib/login.php">
 						<tr style='background-color:#f8f8f8'>
 							<td style='width:25%;font-size:16px;color:#8000ff;' align=center valign=middle>아이디</td>
-							<td style='font-size:16px;color:#8000ff;' align=center valign=middle><input type="text" name="user" style='border:none; line-height:48px; width:100%;'></td>
-							<td rowspan="2" style='width:25%;font-size:16px;color:#8000ff;' align=center valign=middle><input type="submit" name="submit" style='border:none; line-height:98px; width:100%;' value="로그인"></td>
+							<td style='font-size:16px;color:#8000ff;' align=center valign=middle><input tabindex=1 type="text" name="user" style='border:none; line-height:48px; width:100%;'></td>
+							<td rowspan="2" style='width:25%;font-size:16px;color:#8000ff;' align=center valign=middle><input tabindex=3 type="submit" name="submit" style='border:none; line-height:98px; width:100%;' value="로그인"></td>
 						</tr>
 						<tr style='background-color:#f8f8f8'>
 							<td style='width:25%;font-size:16px;color:#8000ff;' align=center valign=middle>비밀번호</td>
-							<td style='font-size:16px;color:#8000ff;' align=center valign=middle><input type="password" name="pass" style='border:none; line-height:48px; width:100%;'></td>
+							<td style='font-size:16px;color:#8000ff;' align=center valign=middle><input tabindex=2 type="password" name="pass" style='border:none; line-height:48px; width:100%;'></td>
 						</tr>
 						<tr style='background-color:#f8f8f8'>
 							<td colspan="3" style='width:100%;font-size:16px;color:#8000ff;' align=center valign=middle><input type="button" name="submit" style='border:none; line-height:48px; width:100%;' value="회원가입" onClick="location.href='./user/userform.php';"></td>

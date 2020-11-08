@@ -16,7 +16,7 @@
 	$userpw = $_POST["pass"];
 	$webtoonDB = new SQLite3('./webtoon.db');
 	if($webtoonDB->lastErrorCode() == 0){
-		if ( $userid !=null && strlen($userid) > 4 && $userpw !=null && strlen($userpw) > 7 ) {
+		if ( $userid !=null && strlen($userid) > 3 && $userpw !=null && strlen($userpw) > 3 ) {
 			$userpassword = strtoupper(hash("sha256", $userpw));
 			 //echo "SELECT MBR_NO, USERID, USERNAME, EMAIL, PHONE, REGDTIME FROM TOON_USER WHERE USERID = '".$userid."' AND PASSWORD = '".$userpassword."' AND STATUS IN ('OK','APPROVED') LIMIT 1;";
 			// SELECT

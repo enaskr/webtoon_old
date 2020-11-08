@@ -29,16 +29,16 @@
 				alert("아이디를 입력해주세요.");
 				return false;
 			}
-			if ( frm.userid.value.length < 5 ) {
-				alert("아이디는 5글자 이상 입력해야합니다.");
+			if ( frm.userid.value.length < 3 ) {
+				alert("아이디는 4글자 이상 입력해야합니다.");
 				return false;
 			}
 			if ( frm.userpassword.value == "" ) {
 				alert("비밀번호를 입력해주세요.");
 				return false;
 			}
-			if ( frm.userpassword.value.length < 8 ) {
-				alert("비밀번호는 8글자 이상 입력해야합니다.");
+			if ( frm.userpassword.value.length < 3 ) {
+				alert("비밀번호는 4글자 이상 입력해야합니다.");
 				return false;
 			}
 			if ( frm.username.value == "" ) {
