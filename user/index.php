@@ -48,13 +48,13 @@
 		$memuserCreated = $row["REGDTIME"];
 		$memuserCreated = substr($memuserCreated,0,4).".".substr($memuserCreated,4,2).".".substr($memuserCreated,6,2);
 
-		echo "<tr style='background-color:#f8f8f8'>";
+		echo "<tr style='background-color:#f8f8f8' onClick=\"location.href='./userdetail.php?userid=".$memuserID."';\">";
 		echo "<td rowspan='2' style='font-size:15px;color:#8000ff;' align=center valign=middle><a href='./userdetail.php?userid=".$memuserID."'>".substr($memmbr_no,8)."</a></td>";
 		echo "<td style='height:30px;font-size:15px;color:#8000ff;' align=center valign=middle>".$memuserID."</td>";
 		echo "<td style='height:30px;font-size:13px;color:#8000ff;' align=center valign=middle>".$memuserEmail."</td>";
 		echo "<td style=;height:30px;font-size:15px;color:#8000ff;' align=center valign=middle>".$memuserStatus."</td>";
 		echo "</tr>\n";
-		echo "<tr style='background-color:#f8f8f8'>";
+		echo "<tr style='background-color:#f8f8f8' onClick=\"location.href='./userdetail.php?userid=".$memuserID."';\">";
 		echo "<td style='height:30px;font-size:15px;color:#8000ff;' align=center valign=middle>".$memuserName."</td>";
 		echo "<td style='height:30px;font-size:13px;color:#8000ff;' align=center valign=middle>".$memuserPhone."</td>";
 		echo "<td style='height:30px;font-size:15px;color:#8000ff;' align=center valign=middle>".$memuserCreated."</td>";

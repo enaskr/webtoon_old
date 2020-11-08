@@ -10,7 +10,7 @@
 	}
 	function changePassword(frm) {
 <?php
-	if ( $userID != "admin" && $userID != "jackie" ) {
+	if ( $userID != "admin" ) {
 ?>
 		if ( frm.userpassword.value == "" ) {
 			alert("이전비밀번호를 입력해주세요.");
