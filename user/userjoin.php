@@ -8,11 +8,22 @@
 		$usersql = $usersql." VALUES ('".$_POST["mbr_no"]."', '".$_POST["userid"]."','".$_POST["username"]."','".$_POST["useremail"]."','".$_POST["userphone"]."','".strtoupper(hash("sha256", $_POST["userpassword"]))."','".$_POST["usermemo"]."','WAIT','".date("YmdHis", time())."');";
 	}
 		$usersql = $usersql." VALUES ('".$_POST["mbr_no"]."', '".$_POST["userid"]."','".$_POST["username"]."','".$_POST["useremail"]."','".$_POST["userphone"]."','".strtoupper(hash("sha256", $_POST["userpassword"]))."','".$_POST["usermemo"]."','".$_POST["userstatus"]."','".date("YmdHis", time())."');";
-		$webtoonDB->exec($usersql);
+		$cnt = $webtoonDB->exec($usersql);
+		if ( $cnt == 1 ) {
 ?>
 <script type="text/javascript">
 	alert("회원정보를 정상적으로 등록하였습니다.");
 	location.replace("<?php echo $http_path; ?>");
 </script>
+<?php
+		} else {
+?>
+<script type="text/javascript">
+	alert("회원정보 등록에 실패했습니다.");
+	location.replace("<?php echo $http_path; ?>");
+</script>
+<?php
+		}
+?>
 </body>
 </html>

@@ -10,9 +10,21 @@
 	} else {
 		$sql_view = "DELETE FROM 'USER_VIEW_TOON' WHERE USERID='".$userID."' AND TOONSITEID='".$siteid."' AND TOONID='".$toonid."';";
 	}
-	$webtoonDB->exec($sql_view);
-?><script type='text/javascript'>
- window.history.back();
+	$cnt = $webtoonDB->exec($sql_view);
+	if ( $cnt > 0 ) {
+?>
+<script type="text/javascript">
+	alert("목록을 삭제했습니다.");
+	window.history.back();
 </script>
-</body>
+<?php
+	} else {
+?>
+<script type="text/javascript">
+	alert("삭제된 목록이 없습니다.");
+	window.history.back();
+</script>
+<?php
+	}
+?></body>
 </html>
