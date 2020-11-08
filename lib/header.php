@@ -5,6 +5,7 @@
 
 	$ends = $_GET["end"];
 	if ( $ends != null && $ends == "END" ) $end = "?end=END";
+	else $end = "";
 
 	$strtitle = "";
 	$uri= $_SERVER['REQUEST_URI']; //uri를 구합니다.
