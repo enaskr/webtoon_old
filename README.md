@@ -11,8 +11,6 @@ Webserver의 docbase 하위에 복사해 놓고, lib/webtoon.db 파일의 권한
 chmod 777 [Webserver docbase]/[압축해제폴더명]/lib/<br>
 chmod 777 [Webserver docbase]/[압축해제폴더명]/lib/webtoon.db<br><br>
 
-* 초기 비밀번호는 admin / sjvawebtoon 입니다.<br><br>
-
 * 위의 권한변경을 하지 않을 경우 비밀번호 변경 등의 DB Update, Insert가 되지 않습니다. Select만 가능합니다.<br><br>
 
 * 초기화면에는 각 사이트마다 3개의 링크가 있습니다.<br>
@@ -25,4 +23,4 @@ chmod 777 [Webserver docbase]/[압축해제폴더명]/lib/webtoon.db<br><br>
 ** 이 소스는 누구든지 퍼가셔서 수정하실 수 있습니다.<br><br>
 ** 더 좋은 프로그램이 되었다면 제가 살짝~ 알려주시면 감사하겠습니다.<br><br>
 
-이메일 : <a href="mailto:choi@changki.com" class="mail">choi@changki.com</a><br><br>
+
